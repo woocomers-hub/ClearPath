@@ -1,6 +1,5 @@
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
-  
   const { message } = req.body;
 
   try {
@@ -15,10 +14,9 @@ export default async function handler(req, res) {
         model: 'claude-3-haiku-20240307',
         max_tokens: 1024,
         messages: [{ role: 'user', content: message }],
-        system: "You are ClearPath AI, a financial advisor helping Americans avoid predatory loans. Offer safe alternatives like credit unions and non-profits. Be concise."
+        system: "You are ClearPath AI, a professional financial assistant for US citizens. Help them find alternatives to high-interest loans. Be concise, expert, and empathetic."
       })
     });
-
     const data = await response.json();
     res.status(200).json({ reply: data.content[0].text });
   } catch (error) {
